@@ -4,6 +4,28 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     // Task configuration.
+    traceur: {
+      options: {
+        // traceur options here
+        experimental: true,
+        // module naming options,
+        moduleNaming: {
+          stripPrefix: "src/es6",
+          addPrefix: "com/jeffwesson/es6-fun"
+        },
+        //Turn on support for let and const
+        blockBinding: true,
+        copyRuntime: 'src/es5'
+      },
+      custom: {
+        files: [{
+          expand: true,
+          cwd: 'src/es6',
+          src: ['*.js'],
+          dest: 'src/es5'
+        }]
+      },
+    },
     jshint: {
       options: {
         curly: true,
@@ -28,28 +50,6 @@ module.exports = function(grunt) {
       lib_test: {
         src: ['lib/**/*.js', 'test/**/*.js']
       }
-    },
-    traceur: {
-      options: {
-        // traceur options here
-        experimental: true,
-        // module naming options,
-        moduleNaming: {
-          stripPrefix: "src/es6",
-          addPrefix: "com/jeffwesson/es6-fun"
-        },
-        //Turn on support for let and const
-        blockBinding: true,
-        copyRuntime: 'src/es5'
-      },
-      custom: {
-        files: [{
-          expand: true,
-          cwd: 'src/es6',
-          src: ['*.js'],
-          dest: 'src/es5'
-        }]
-      },
     },
     qunit: {
       files: ['test/**/*.html']
@@ -76,6 +76,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'qunit']);
+  grunt.registerTask('default', ['traceur', 'jshint', 'qunit']);
 
 };
