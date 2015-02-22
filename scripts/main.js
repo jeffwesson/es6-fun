@@ -2,8 +2,8 @@
   'use strict';
 
   // Fun with ECMAScript 6
-  document.readyState = function() {
+  document.addEventListener('DOMContentLoaded', function() {
     console.log('The document has been loaded.');
-  };
+  });
 
 })();
